@@ -37,3 +37,7 @@
 .playing view, .playing text {
   color: #d43c33;
 }
+
+.playing view, playing text{
+  color: #d43c33
+}

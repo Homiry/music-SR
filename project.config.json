@@ -47,12 +47,21 @@
 					"id": -1,
 					"name": "pages/musiclist/musicliat",
 					"pathName": "pages/musiclist/musicliat",
+					"query": "",
 					"scene": null
 				},
 				{
 					"id": -1,
 					"name": "pages/musiclist/musiclist",
 					"pathName": "pages/musiclist/musiclist",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/musiclist/musiclist",
+					"pathName": "pages/musiclist/musiclist",
+					"query": "playlistId=3109308667",
 					"scene": null
 				}
 			]
