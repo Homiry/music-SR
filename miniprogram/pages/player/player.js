@@ -47,7 +47,7 @@ Page({
       picUrl: music.al.picUrl,
       isPlaying: false,
     })
-    
+      console.log(musicId, typeof musicId)
     app.setPlayMusicId(musicId)
 
     wx.showLoading({
