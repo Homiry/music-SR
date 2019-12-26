@@ -18,6 +18,7 @@ Page({
     isPlaying: false,  //false表示不播放
     isLyricShow: false, //表示当前歌词是否显示，false表示不显示
     lyric: '',
+    isSame: false, //表示歌曲是否为同一首歌，false表示不是
   },
 
   /**
@@ -32,10 +33,16 @@ Page({
   },
 
   _loadMusicDetail(musicId){
-
+    if (musicId == app.getPlayMusicId(musicId)){
+      this.setData({
+        isSame: true
+      })
+    }
     //下面的方法实现切换时先停止上一首再加载下一首的优化效果
-    backgroundAudioManager.stop()
-
+    if(!this.data.isSame){
+      backgroundAudioManager.stop()
+    }
+    
     let music = musiclist [nowPlayingIndex]
     console.log(music)
     //把歌曲名字显示在导航栏上
@@ -66,12 +73,15 @@ Page({
       console.log(JSON.parse(res.result))
       //
       let result = JSON.parse(res.result)
-      backgroundAudioManager.src = result.data[0].url
-      backgroundAudioManager.title = music.name
-      backgroundAudioManager.coverImgUrl = music.al.picUrl
-      backgroundAudioManager.singer = music.ar[0].name
-      backgroundAudioManager.epname = music.al.name
+      if(!this.data.isSame){
+        backgroundAudioManager.src = result.data[0].url
+        backgroundAudioManager.title = music.name
+        backgroundAudioManager.coverImgUrl = music.al.picUrl
+        backgroundAudioManager.singer = music.ar[0].name
+        backgroundAudioManager.epname = music.al.name
 
+      }
+      
       this.setData({
         isPlaying: true
       })

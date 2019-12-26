@@ -17,6 +17,7 @@
     bind:timeUpdate="timeUpdate"
     bind:musicPlay="onPlay"
     bind:musicPause="onPause"
+    isSame="{{isSame}}"
     />
   </view>
 
