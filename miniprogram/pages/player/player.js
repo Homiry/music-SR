@@ -38,7 +38,7 @@ Page({
         isSame: true
       })
     }
-    //下面的方法实现切换时先停止上一首再加载下一首的优化效果
+    //不是同一首歌曲才执行：下面的方法实现切换时先停止上一首再加载下一首的优化效果
     if(!this.data.isSame){
       backgroundAudioManager.stop()
     }
@@ -73,6 +73,13 @@ Page({
       console.log(JSON.parse(res.result))
       //
       let result = JSON.parse(res.result)
+      if(result.data[0].url == null) {
+        wx.showToast({
+          title: '无权限播放',
+        })
+        return
+      }
+      //不是同一首歌曲才执行
       if(!this.data.isSame){
         backgroundAudioManager.src = result.data[0].url
         backgroundAudioManager.title = music.name
