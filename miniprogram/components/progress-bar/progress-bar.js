@@ -81,6 +81,8 @@ Component({
     backgroundAudioManager.onPlay(() => {
       console.log('onPlay')
       isMoving = false
+      //在player.wxml中接收
+      this.triggerEvent('musicPlay')
     })
 
     backgroundAudioManager.onStop(() => {
@@ -89,6 +91,8 @@ Component({
 
     backgroundAudioManager.onPause(() => {
       console.log('Pause')
+      //在player.wxml中接收
+      this.triggerEvent('musicPause')
     })
 
     backgroundAudioManager.onWaiting(() => {

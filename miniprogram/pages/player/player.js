@@ -137,6 +137,18 @@ Page({
     //通过选择器 选取组件，然后给它定义的一个update方法传参
     this.selectComponent('.lyric').update(event.detail.currentTime)
   },
+
+  onPlay(){
+    this.setData({
+      isPlaying: true,
+    })
+  },
+
+  onPause(){
+    this.setData({
+      isPlaying: false,
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
