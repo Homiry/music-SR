@@ -6,6 +6,8 @@ let nowPlayingIndex = 0
 //获取全局唯一的背景音频管理器
 const backgroundAudioManager = wx.getBackgroundAudioManager()
 
+const app =getApp()
+
 Page({
 
   /**
@@ -14,6 +16,8 @@ Page({
   data: {
     picUrl: '',
     isPlaying: false,  //false表示不播放
+    isLyricShow: false, //表示当前歌词是否显示，false表示不显示
+    lyric: '',
   },
 
   /**
@@ -34,6 +38,7 @@ Page({
 
     let music = musiclist [nowPlayingIndex]
     console.log(music)
+    //把歌曲名字显示在导航栏上
     wx.setNavigationBarTitle({
       title: music.name,
     })
@@ -42,6 +47,8 @@ Page({
       picUrl: music.al.picUrl,
       isPlaying: false,
     })
+    
+    app.setPlayMusicId(musicId)
 
     wx.showLoading({
       title: '歌曲加载中',
@@ -69,6 +76,26 @@ Page({
         isPlaying: true
       })
       wx.hideLoading()
+
+      //加载歌词
+      wx.cloud.callFunction({
+        name: 'music',
+        data: {
+          musicId,
+          $url: 'lyric',
+        }
+      }).then((res) => {
+        console.log(res)
+        let lyric = '暂无歌词'
+        const lrc = JSON.parse(res.result).lrc
+        if (lrc){
+          lyric = lrc.lyric
+        }
+        this.setData({
+          lyric
+        })
+
+      })
     })
   },
 
@@ -99,7 +126,17 @@ Page({
     }
     this._loadMusicDetail(musiclist[nowPlayingIndex].id)
   },
-
+ //控制封面与歌词的切换
+  onChangeLyricShow(){
+    this.setData({
+      isLyricShow: !this.data.isLyricShow
+    })
+  },
+  //数据处理函数：把接收到的currentTime传到lyric组件去
+  timeUpdate(event){
+    //通过选择器 选取组件，然后给它定义的一个update方法传参
+    this.selectComponent('.lyric').update(event.detail.currentTime)
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
