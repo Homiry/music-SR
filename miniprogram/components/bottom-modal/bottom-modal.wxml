@@ -1,0 +1,5 @@
+<view class="modal">
+  <view class="panel">
+    <i class="iconfont icon-shanchu"></i>
+  </view>
+</view>
