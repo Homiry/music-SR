@@ -24,4 +24,5 @@
   right: 10rpx;
   top: 10rpx;
   padding: 20rpx;   /* 给外边框增大点击区域 */
+  font-size: 48rpx;
 }
