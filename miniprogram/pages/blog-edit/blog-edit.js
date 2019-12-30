@@ -113,6 +113,8 @@ Page({
 
     wx.showLoading({
       title: '发布ing',
+      //当执行该函数时产生一个蒙版阻止点击执行下面的事件
+      mask: true,
     })
 
     let promiseArr = []
@@ -153,9 +155,14 @@ Page({
         wx.showToast({
           title: '发布成功',
         })
-        //返回blog页面并刷新
+        //返回blog页面,并刷新(刷新需要调用父页面的函数)
         wx.navigateBack()
-
+        const pages = getCurrentPages()
+        // console.log(pages)
+        //取到上一个页面（blog页面）
+        const prevPage = pages[pages.length - 2]
+        //调用父页面刷新的函数
+        prevPage.onPullDownRefresh()
       })
     }).catch((err) => {
       wx.hideLoading()
