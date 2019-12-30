@@ -1,7 +1,7 @@
 module.exports = (date) => {
   let fmt = 'yyyy-MM-dd hh:mm:ss'
   const o = {
-    'M+': date.getMonth() + 1, // 月份
+    'M+': date.getMonth() + 1, // 月份    因为是零到十一 so加一
     'd+': date.getDate(), // 日
     'h+': date.getHours(), // 小时
     'm+': date.getMinutes(), // 分钟

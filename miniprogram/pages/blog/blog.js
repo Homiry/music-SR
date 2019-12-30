@@ -5,25 +5,26 @@ Page({
    * 页面的初始数据
    */
   data: {
-    modalShow: false,   //控制底部弹出层是否显示
+    modalShow: false, //控制底部弹出层是否显示
+    blogList: []
   },
 
   //发布功能
-  onPublish(){
+  onPublish() {
     //判断用户是否授权
     wx.getSetting({
       success: (res) => {
         console.log(res)
-        if (res.authSetting['scope.userInfo']){
+        if (res.authSetting['scope.userInfo']) {
           wx.getUserInfo({
-            success:(res)=>{
+            success: (res) => {
               // console.log(res)
-            this.onLoginSuccess({
-              detail: res.userInfo
-            })
+              this.onLoginSuccess({
+                detail: res.userInfo
+              })
             }
-          })  
-        }else{
+          })
+        } else {
           this.setData({
             modalShow: true,
           })
@@ -32,7 +33,7 @@ Page({
     })
   },
 
-  onLoginSuccess(event){
+  onLoginSuccess(event) {
     console.log(event)
     const detail = event.detail
     wx.navigateTo({
@@ -40,7 +41,7 @@ Page({
     })
   },
 
-  onLoginFail(){
+  onLoginFail() {
     wx.showModal({
       title: '授权用户才能发布',
       content: '',
@@ -50,56 +51,71 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-
+  onLoad: function(options) {
+    this._loadBlogList()
+    console.log(this.data)
   },
 
+  _loadBlogList() {
+    wx.cloud.callFunction({
+      name: 'blog',
+      data: {
+        $url: 'list',
+        start: 0,
+        count: 10,
+      }
+    }).then((res) => {
+      this.setData({
+        blogList: this.data.blogList.concat(res.result)
+      })
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   }
 })
