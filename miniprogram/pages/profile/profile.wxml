@@ -1,2 +1,2 @@
-<!--pages/profile/profile.wxml-->
-<text>奥利给</text>
+<open-data type="userNickName"></open-data>
+<open-data type="userAvatarUrl"></open-data>

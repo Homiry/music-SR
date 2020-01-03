@@ -1,4 +1,5 @@
 <view class="container">
+  <!-- textarea为小程序的原生组件 -->
   <textarea class="content" placeholder="分享新鲜事..." bindinput="onInput" maxlength="140" auto-focus
   bindfocus="onFocus" bindblur="onBlur"></textarea>
   <view class="image-list">

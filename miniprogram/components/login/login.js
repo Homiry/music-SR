@@ -26,6 +26,7 @@ Component({
         this.setData({
           modalShow: false
         })
+        //自定义组件触发事件时，需要使用 triggerEvent 方法，指定事件名、detail对象和事件选项
         this.triggerEvent('loginsuccess', useInfo)
       } else {
         this.triggerEvent('loginfail')

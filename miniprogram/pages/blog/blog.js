@@ -1,4 +1,7 @@
 // pages/blog/blog.js
+
+let keyword = ''       //搜索关键字
+
 Page({
 
   /**
@@ -55,6 +58,16 @@ Page({
     this._loadBlogList()
     console.log(this.data)
   },
+  //muohuchaxun
+  onSearch(event) {
+    // console.log(event)
+    // console.log(event.detail.keyword)
+    this.setData({
+      blogList: []
+    })
+    keyword = event.detail.keyword
+    this._loadBlogList(0)
+  },
 
   _loadBlogList(start = 0) {
     wx.showLoading({
@@ -64,6 +77,7 @@ Page({
     wx.cloud.callFunction({
       name: 'blog',
       data: {
+        keyword,
         start,
         //每次加载10条发布数据
         count: 10,
@@ -83,6 +97,9 @@ Page({
       url: '../../pages/blog-comment/blog-comment?blogId=' + event.target.dataset.blogid,
     })
   },
+
+  
+  
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -131,7 +148,13 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
-
+  onShareAppMessage: function(event) {
+    console.log(event)
+    let blogObj = event.target.dataset.blog
+    return {
+      title: blogObj.content,
+      path: `/pages/blog-comment/blog-comment?blogId=${blogObj._id}`,
+      // imageUrl:
+    }
   }
 })
