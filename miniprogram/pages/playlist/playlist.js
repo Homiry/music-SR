@@ -7,13 +7,13 @@ Page({
    */
   data: {
     swiperImgUrls: [{
-        url: 'http://p1.music.126.net/oeH9rlBAj3UNkhOmfog8Hw==/109951164169407335.jpg',
+      url: 'http://a1.qpic.cn/psc?/V102yepq3ijS35/NsnpM1uFKDYfpy9CWgdxx56ZJtH4*zeIXemoSSyqJ8fkhFqYAOd6IZnx7CT5yU9tShL*DAh.4KFKZkSij8Kqqw!!/m&ek=1&kp=1&pt=0&bo=gAc4BIAHOAQRGS4!&tl=3&vuin=1733865392&tm=1578132000&sce=60-4-3&rf=0-0',
       },
       {
-        url: 'http://p1.music.126.net/xhWAaHI-SIYP8ZMzL9NOqg==/109951164167032995.jpg',
+        url: 'http://m.qpic.cn/psc?/V102yepq3ijS35/ETWql2gUF22pNmiMBc.OAWL3vtdDCjSQIuosTq.Lh4J9efyyghrjZ4pUOoEgXZMIySJI*vuA5bu2DxVW8iGll8se8te.zY58..vWdVV8430!/b&bo=uQM0ArkDNAIRGS4!&rf=viewer_4',
       },
       {
-        url: 'http://p1.music.126.net/Yo-FjrJTQ9clkDkuUCTtUg==/109951164169441928.jpg',
+        url: 'http://m.qpic.cn/psc?/V102yepq3ijS35/ETWql2gUF22pNmiMBc.OARg.GxxKT9osE0nIh5SkYrviRwdesTuUp4x4F4JaNOYTCADD2Vby4tWXo4ogKlVBgu6lEFhEoZfWrws8Udk3FUA!/b&bo=gAc4BIAHOAQRGS4!&rf=viewer_4',
       }
     ],
     playlist: []

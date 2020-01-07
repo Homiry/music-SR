@@ -14,16 +14,16 @@ const MAX_LIMIT = 100
 
 
 // 云函数入口函数
-exports.main = async (event, context) => {
-  const app =new TcbRouter({
+exports.main = async(event, context) => {
+  const app = new TcbRouter({
     event
   })
-  
-  app.router('list', async (ctx, next) => {
+
+  app.router('list', async(ctx, next) => {
     //muohuchaxun
     const keyword = event.keyword
     let w = {}
-    if(keyword.trim() !=''){
+    if (keyword.trim() != '') {
       w = {
         content: new db.RegExp({
           regexp: keyword,
@@ -32,9 +32,9 @@ exports.main = async (event, context) => {
       }
     }
     let blogList = await blogCollection.where(w).skip(event.start).limit(event.count)
-    .orderBy('createTime', 'desc').get().then((res) =>{
-      return res.data
-    })
+      .orderBy('createTime', 'desc').get().then((res) => {
+        return res.data
+      })
     ctx.body = blogList
   })
 
@@ -43,7 +43,7 @@ exports.main = async (event, context) => {
     //详情查询
     let detail = await blogCollection.where({
       _id: blogId
-    }).get().then((res)=>{
+    }).get().then((res) => {
       return res.data
     })
     //评论查询
@@ -52,17 +52,17 @@ exports.main = async (event, context) => {
     let commentList = {
       data: []
     }
-    if(total > 0){
+    if (total > 0) {
       const batchTime = Math.ceil(total / MAX_LIMIT)
       const tasks = []
-      for(let i = 0; i < batchTime; i++) {
+      for (let i = 0; i < batchTime; i++) {
         let promise = db.collection('blog-comment').skip(i * MAX_LIMIT).limit(MAX_LIMIT).where({
           blogId
         }).orderBy('createTime', 'desc').get()
         tasks.push(promise)
       }
-      if(tasks.length > 0){
-        commentList = (await Promise.all(tasks)).reduce((acc, cur)=>{
+      if (tasks.length > 0) {
+        commentList = (await Promise.all(tasks)).reduce((acc, cur) => {
           return {
             data: acc.data.concat(cur.data)
           }
@@ -75,5 +75,13 @@ exports.main = async (event, context) => {
     }
   })
 
+  const wxContext = cloud.getWXContext()
+  app.router('getListByOpenid', async(ctx, next) => {
+    ctx.body = await blogCollection.where({
+      _openid: wxContext.OPENID
+    }).skip(event.start).limit(event.count).orderBy('createTime', 'desc').get().then((res) => {
+      return res.data
+    })
+  })
   return app.serve()
 }
